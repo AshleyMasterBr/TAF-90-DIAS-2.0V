@@ -21,6 +21,7 @@ const EXERCISE_GUIDE = {
     "Flexão": { desc: "Mãos alinhadas com os ombros. Corpo em prancha total. Desça o peito o mais próximo possível do chão.", panda_url: "" },
     "Barra": { desc: "Pegada pronada. Inicie 100% estendido. Suba até as clavículas encostarem ou o queixo passar da barra.", panda_url: "https://player-vz-7bedc2f5-98b.tv.pandavideo.com.br/embed/?v=5efde728-906e-4e7a-be24-e46fea6b4b41" },
     "Abdominal": { desc: "Estilo Remador. Deitado, corpo reto. Suba flexionando joelhos e tronco ao mesmo tempo.", panda_url: "https://player-vz-7bedc2f5-98b.tv.pandavideo.com.br/embed/?v=b0b4d111-3e3f-45da-a471-61b4acb464a5" },
+    "Abs": { desc: "Estilo Remador. Deitado, corpo reto. Suba flexionando joelhos e tronco ao mesmo tempo.", panda_url: "https://player-vz-7bedc2f5-98b.tv.pandavideo.com.br/embed/?v=b0b4d111-3e3f-45da-a471-61b4acb464a5" },
     "Corrida": { desc: "Tronco ereto, ombros relaxados. Concentre na passada constante.", panda_url: "" },
     "Agachamento": { desc: "Pés na largura dos ombros. Peso no calcanhar. Desça 90 graus.", panda_url: "https://player-vz-7bedc2f5-98b.tv.pandavideo.com.br/embed/?v=dd754e0e-3151-4f08-ad0f-ef45708539fd" },
     "Burpee": { desc: "Modo Tático Militar. Deite com o peito no chão por completo. Subida com salto.", panda_url: "" },
