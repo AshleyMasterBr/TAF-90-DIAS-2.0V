@@ -65,8 +65,8 @@ const app = {
                     this.data.role = 'admin';
                 }
 
-                // SISTEMA ANTI-PIRATARIA FINGERPRINT (O Mestre é isento)
-                if (this.data.role !== 'admin') {
+                // SISTEMA DE FINGERPRINT (Sistema de bloqueio de dispositivo pausado para evitar falsos positivos)
+                /* if (this.data.role !== 'admin') {
                     let fp = localStorage.getItem('taf_device_token');
                     if (!fp) { fp = crypto.randomUUID(); localStorage.setItem('taf_device_token', fp); }
                     
@@ -78,7 +78,7 @@ const app = {
                         localStorage.clear();
                         return location.reload();
                     }
-                }
+                } */
 
                 // ROTEAMENTO DE CARGOS
                 if (this.data.role === 'admin') {
