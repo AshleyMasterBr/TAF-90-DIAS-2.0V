@@ -310,7 +310,20 @@ const app = {
         const aquecimentos = Array.isArray(treino.aquecimento) ? treino.aquecimento : [];
         const principais = Array.isArray(treino.principal) ? treino.principal : [];
 
-        document.getElementById('warmup-list').innerHTML = aquecimentos.map(i => `<li><i class="fa-solid fa-angles-right"></i> ${i}</li>`).join('');
+        let warmupHtml = '';
+        aquecimentos.forEach(f => {
+            if (typeof f === 'string') {
+                warmupHtml += `<li><i class="fa-solid fa-angles-right"></i> ${f}</li>`;
+            } else if (f.titulo) {
+                warmupHtml += `<li style="margin-top: 10px; margin-bottom: 5px;"><strong style="color:var(--primary)"><i class="fa-solid fa-clock"></i> ${f.titulo}</strong></li>`;
+                if(Array.isArray(f.exercicios)) {
+                    f.exercicios.forEach(ex => {
+                        warmupHtml += `<li><i class="fa-solid fa-circle-check" style="color:var(--success); font-size:10px; margin-right:5px;"></i> ${ex}</li>`;
+                    });
+                }
+            }
+        });
+        document.getElementById('warmup-list').innerHTML = warmupHtml;
         
         document.getElementById('main-list-container').innerHTML = principais.map(ex => {
             const nomeBase = ex.split(':')[0].trim();
@@ -334,7 +347,46 @@ const app = {
         }).join('');
         
         document.getElementById('modal-title').innerText = `DIA ${this.data.dia_atual}`;
+        this.resetWarmupTimer();
         this.openModal('modal-workout');
+    },
+
+    warmupState: { timer: null, seconds: 600, isPlaying: false },
+
+    formatTime: function(secs) {
+        const m = Math.floor(secs / 60).toString().padStart(2, '0');
+        const s = (secs % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    },
+
+    toggleWarmupTimer: function() {
+        if (this.warmupState.isPlaying) {
+            clearInterval(this.warmupState.timer);
+            this.warmupState.isPlaying = false;
+            document.getElementById('btn-timer-play').innerHTML = '<i class="fa-solid fa-play"></i> INICIAR';
+        } else {
+            this.warmupState.isPlaying = true;
+            document.getElementById('btn-timer-play').innerHTML = '<i class="fa-solid fa-pause"></i> PAUSAR';
+            this.warmupState.timer = setInterval(() => {
+                if (this.warmupState.seconds > 0) {
+                    this.warmupState.seconds--;
+                    document.getElementById('warmup-clock').innerText = this.formatTime(this.warmupState.seconds);
+                } else {
+                    clearInterval(this.warmupState.timer);
+                    this.warmupState.isPlaying = false;
+                    document.getElementById('btn-timer-play').innerHTML = '<i class="fa-solid fa-play"></i> INICIAR';
+                    this.vibrate([200, 100, 200, 100, 500]); // Alerta de fim nativo se suportado
+                }
+            }, 1000);
+        }
+    },
+
+    resetWarmupTimer: function() {
+        clearInterval(this.warmupState.timer);
+        this.warmupState.isPlaying = false;
+        this.warmupState.seconds = 600;
+        document.getElementById('warmup-clock').innerText = "10:00";
+        document.getElementById('btn-timer-play').innerHTML = '<i class="fa-solid fa-play"></i> INICIAR';
     },
 
     completeMission: async function() {
@@ -602,7 +654,14 @@ const app = {
         document.getElementById('edit-wk-foco').value = data.foco || "";
         
         // Transforma o Array JSON em texto com quebras de linha p/ facilitar
-        const wTxt = Array.isArray(data.aquecimento) ? data.aquecimento.join('\n') : '';
+        let wTxt = '';
+        if (Array.isArray(data.aquecimento)) {
+            if (data.aquecimento.length > 0 && typeof data.aquecimento[0] === 'object') {
+                wTxt = JSON.stringify(data.aquecimento, null, 2);
+            } else {
+                wTxt = data.aquecimento.join('\n');
+            }
+        }
         const mTxt = Array.isArray(data.principal) ? data.principal.join('\n') : '';
         
         document.getElementById('edit-wk-warmup').value = wTxt;
@@ -614,8 +673,11 @@ const app = {
         const titulo = document.getElementById('edit-wk-titulo').value.trim();
         const foco = document.getElementById('edit-wk-foco').value.trim();
         
-        // Separa as linhas do textarea em Arrays limpinhos
-        let warmupArr = document.getElementById('edit-wk-warmup').value.split('\n').map(t => t.trim()).filter(t => t.length > 0);
+        // Separa as linhas do textarea em Arrays limpinhos ou ignora parsing se for JSON
+        let rawWarmup = document.getElementById('edit-wk-warmup').value.trim();
+        let warmupArr;
+        try { warmupArr = JSON.parse(rawWarmup); }
+        catch (e) { warmupArr = rawWarmup.split('\n').map(t => t.trim()).filter(t => t.length > 0); }
         let mainArr = document.getElementById('edit-wk-main').value.split('\n').map(t => t.trim()).filter(t => t.length > 0);
         
         if(!id) return;
