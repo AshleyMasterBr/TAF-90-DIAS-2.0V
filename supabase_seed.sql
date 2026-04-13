@@ -18,7 +18,7 @@ INSERT INTO public.workouts (nivel, dia, titulo, foco, aquecimento, principal) V
 ('INICIANTE', 3, 'Resistência Leve', 'Respiração e Cadência', '["Alongamento Dinâmico de Pernas", "Respiração Bilateral"]', '["Corrida: 800m leve + 4 tiros de 100m com 30s descanso", "Abs Remador: 4x15"]'),
 ('INICIANTE', 4, 'Fortalecimento Superiores', 'Resistência Localizada', '["Flexão com Joelhos 2x10", "Prancha Alta 2x30s"]', '["Burpee (sem salto): 3x10", "Dead Bug: 3x20 alternados", "Remada Curvada com peso leve: 4x12"]'),
 ('INICIANTE', 5, 'Endurance Tática', 'Resistência Geral', '["Polichinelos 3x30s", "Stiff leve (cabo de vassoura)"]', '["Corrida: 1.5km ritmo constante", "Flexão de Braço (com joelhos) 3x Máx", "Isometria na Barra: 3x Máximo tempo possível"]'),
-('INICIANTE', 6, 'Core e Recuperação', 'Núcleo e Mobilidade', '["Respiração Tática 4-7-8", "Alongamentos passivos 5min"]', '["Abs Remador (Teste): Máx em 1 minuto", "Prancha Tática: 3x 45s", "Stiff com halteres/galões: 4x15"]'),
+('INICIANTE', 6, 'Core e Recuperação', 'Núcleo e Mobilidade', '["Respiração Tática 4-7-8", "Alongamentos passivos 5min"]', '["Abs Remador (Teste): Máx em 1 minuto", "Prancha Tática: 3x 45s", "Stiff com peso corporal ou mochila leve: 4x15"]'),
 
 -- INTERMEDIARIO (Dias 1 a 6)
 ('INTERMEDIARIO', 1, 'Volume e Cadência', 'Aumento Progressivo', '["Prancha 3x45s", "Mobilidade Torácica"]', '["Barra Fixa: 3 séries de 6 reps com pausa 3s no meio da subida", "Flexão de Braço: 4x15 execução rápida", "Natação: 6x25m focado em braçada longa"]'),
